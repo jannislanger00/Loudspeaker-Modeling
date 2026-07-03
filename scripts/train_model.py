@@ -6,20 +6,20 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from loudspeaker_modeling.metrics import load_params
+from loudspeaker_modeling.model import load_params
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run the selected evaluation step.")
+    parser = argparse.ArgumentParser(description="Train the selected model.")
     parser.add_argument("--params", default="params.yaml")
     args = parser.parse_args()
 
     params = load_params(args.params)
-    metrics = params["evaluation"].get("metrics", [])
-    if not metrics:
-        print("No evaluation metrics selected yet. Add them to params.yaml after deciding them.")
+    model_name = params["model"].get("name")
+    if model_name is None:
+        print("No model selected yet. Set model.name in params.yaml after deciding the model.")
         return 0
-    print(f"Selected metrics: {', '.join(metrics)}")
+    print(f"Selected model: {model_name}")
     return 0
 
 

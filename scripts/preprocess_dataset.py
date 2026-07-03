@@ -2,26 +2,26 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
-from _bootstrap import add_src_to_path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-add_src_to_path()
-
-from loudspeaker_modeling.data.manifest import read_manifest
-from loudspeaker_modeling.utils.config import load_yaml
+from loudspeaker_modeling.preprocessing import load_params
+from loudspeaker_modeling.preprocessing import prepare_processed_dir
+from loudspeaker_modeling.preprocessing import summarize_raw_dir
+from loudspeaker_modeling.preprocessing import write_preprocessing_summary
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Preprocess raw loudspeaker measurements.")
+    parser = argparse.ArgumentParser(description="Run the selected preprocessing step.")
     parser.add_argument("--params", default="params.yaml")
     args = parser.parse_args()
 
-    config = load_yaml(args.params)
-    manifest_path = Path(config["paths"]["raw_manifest"])
-    recordings = read_manifest(manifest_path)
-    output_dir = Path(config["paths"]["processed_dir"])
-    output_dir.mkdir(parents=True, exist_ok=True)
-    print(f"Validated {len(recordings)} manifest rows. Preprocessing implementation is pending.")
+    params = load_params(args.params)
+    raw_summary = summarize_raw_dir(params["paths"]["raw_dir"])
+    processed_dir = prepare_processed_dir(params["paths"]["processed_dir"])
+    summary_path = write_preprocessing_summary(processed_dir, raw_summary, params)
+    print(f"Wrote preprocessing summary: {summary_path}")
     return 0
 
 

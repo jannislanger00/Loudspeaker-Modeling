@@ -5,14 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "loudspeaker-modeling"
 version = "0.1.0"
-description = "Neural grey-box modeling and compensation of nonlinear loudspeaker distortion."
+description = "Minimum reproducible scientific loop for loudspeaker modeling."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "numpy>=1.26",
-  "scipy>=1.11",
-  "soundfile>=0.12",
-  "matplotlib>=3.8",
   "pyyaml>=6.0",
 ]
 
@@ -21,10 +18,6 @@ dev = [
   "pytest>=8.0",
   "ruff>=0.5",
 ]
-data = [
-  "dvc>=3.0",
-]
-
 [tool.setuptools.packages.find]
 where = ["src"]
 
