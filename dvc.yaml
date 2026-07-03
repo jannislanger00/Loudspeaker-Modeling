@@ -1,0 +1,23 @@
+stages:
+  preprocess:
+    cmd: python scripts/preprocess_dataset.py --params params.yaml
+    deps:
+      - scripts/preprocess_dataset.py
+      - src/loudspeaker_modeling
+      - data/raw/manifest.csv
+    params:
+      - preprocess
+      - paths
+    outs:
+      - data/processed
+
+  evaluate:
+    cmd: python scripts/evaluate_model.py --params params.yaml
+    deps:
+      - scripts/evaluate_model.py
+      - src/loudspeaker_modeling
+      - data/processed
+    params:
+      - evaluation
+    outs:
+      - artifacts/metrics

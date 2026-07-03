@@ -1,0 +1,14 @@
+*.docx binary
+*.pdf binary
+*.wav binary
+*.flac binary
+*.npz binary
+*.pt binary
+*.pth binary
+*.ckpt binary
+*.csv text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.tex text eol=lf

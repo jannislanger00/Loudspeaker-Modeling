@@ -1,0 +1,1 @@
+recording_id,file_path,speaker_id,signal_type,level_dbfs,repetition,sample_rate_hz,input_channel,microphone_channel,pressure_channel,vibrometer_channel,microphone_distance_m,date,room_notes,temperature_notes,rest_interval_s,notes

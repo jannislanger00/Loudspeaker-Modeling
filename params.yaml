@@ -1,0 +1,46 @@
+project:
+  sample_rate_hz: 48000
+  random_seed: 42
+  phase: "phase_1_measurement_and_data"
+
+paths:
+  raw_manifest: data/raw/manifest.csv
+  interim_dir: data/interim
+  processed_dir: data/processed
+  artifacts_dir: artifacts
+
+measurement:
+  speaker_ids: ["speaker_01"]
+  microphone_distance_m: 0.02
+  signal_types: ["log_sweep", "multitone", "music", "speech"]
+  levels_dbfs: [-30, -24, -18, -12, -6]
+  repetitions: 2
+  rest_interval_s: 30
+  warmup_enabled: true
+
+preprocess:
+  target_sample_rate_hz: 48000
+  segment_seconds: 2.0
+  hop_seconds: 1.0
+  normalize_peak: 0.95
+  alignment:
+    max_lag_seconds: 0.1
+
+splits:
+  train:
+    level_dbfs: [-30, -24, -18, -12]
+  validation:
+    repetition_indices: [1]
+  test:
+    level_dbfs: [-6]
+    signal_types: ["music", "speech"]
+
+evaluation:
+  fft_size: 8192
+  stft:
+    n_fft: 2048
+    hop_length: 512
+  thd:
+    max_harmonic: 5
+  imd:
+    max_order: 3
